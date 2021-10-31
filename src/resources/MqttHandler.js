@@ -20,15 +20,20 @@ class MqttHandler{
     
         // Connection callback
         this.MqttClient.on('connect', () => {
-            console.log(`mqtt client connected`);
+            if(this.MqttClient.connected){
+                console.log(`mqtt client connected`);
+
+                // this.MqttClient.subscribe()
+                this.MqttClient.subscribe('fromEsp', {qos: 0});
+            }
         });
-    
-        // mqtt subscriptions
-        this.MqttClient.subscribe('fromEsp', {qos: 0});
     
         // When a message arrives, console.log it
         this.MqttClient.on('message', function (topic, message) {
             console.log(message.toString());
+            if(topic == 'fromEsp'){
+                console.log('ESP32');
+            }
         });
     
         this.MqttClient.on('close', () => {
@@ -42,5 +47,7 @@ class MqttHandler{
     subscribe(topic){
         this.MqttClient.subscribe(topic);
     }
+
+    isConnected = () => this.MqttClient.connected;
 }
 module.exports = MqttHandler;
