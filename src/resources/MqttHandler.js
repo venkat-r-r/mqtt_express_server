@@ -1,7 +1,7 @@
 const mqtt = require('mqtt');
-
+const { props } = require('../config');
 class MqttHandler{
-    constructor({topic = 'sample', url='mqtt:localhost:8080'}){
+    constructor({topic = 'sample', url=`mqtt:${props.mqtt.host}:${props.mqtt.port}`}){
         this.MqttClient = null;
         this.url = url;
         this.topic = topic;

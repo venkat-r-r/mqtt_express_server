@@ -1,11 +1,14 @@
 const express = require('express');
 const mqttHandler = require('./resources/MqttHandler');
+const { props } = require( './config');
+
+
 var app = express();
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-var mqttClient = new mqttHandler({});
+var mqttClient = new mqttHandler({url: `mqtt:${props.mqtt.host}:${props.mqtt.port}`});
 
 mqttClient.connect();
 
@@ -18,7 +21,7 @@ app.post("/send", (req, res) => {
   res.status(503).send('Right now our mqtt server is unavailable!!');
 });
 
-var server = app.listen( 9000, '192.168.10.5' , function () {
+var server = app.listen( props.express.port, props.express.host , function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log("listening at http://%s:%s", host, port);

@@ -1,6 +1,6 @@
 const mosca = require('mosca');
-
-const settings = {port : 8080};
+const { props } = require('./config')
+const settings = {port : props.mqtt.port};
 
 const server = new mosca.Server(settings);
 
