@@ -8,3 +8,5 @@
 ###### Whenever user sends a data or instruction like changing current state of light through post request to our `express` server, our server will publish that data to channel that was subscribed by all our devices
 ###### ESP32 only interacts with `MQTT` broker 
 ###### User only interacts with `Express` app
+
+example: https://github.com/venkat-r-r/arduino-sketches/tree/main/mqtt_client
